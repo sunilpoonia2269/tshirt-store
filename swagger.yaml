@@ -1,0 +1,83 @@
+openapi: 3.0.0
+info:
+  title: Tshirt Store
+  description: An Tshirt app backend API
+  version: 1.0.0
+  contact:
+    name: Sunil Poonia
+    email: sunil.poonia.2269@gmail.com
+    url: "https:devsunil.co.uk"
+
+servers:
+  - url: "{protocol}://localhost:4000/api/{version}"
+    description: Server for localhost environment
+    variables:
+      protocol:
+        enum:
+          - http
+          - https
+        default: http
+      version:
+        enum:
+          - v1
+          - v2
+        default: v1
+
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
+
+    BearerAuth:
+      type: http
+      scheme: bearer
+
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: token
+
+paths:
+  /dummy:
+    get:
+      tags:
+        - json
+      summary: Provides greet message in json
+      responses:
+        200: #status code
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: Object
+                properties:
+                  success:
+                    type: Boolean
+                  message:
+                    type: String
+                example: { success: true, message: "Hello there" }
+        400: #status code
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: Object
+                properties:
+                  success:
+                    type: Boolean
+                  message:
+                    type: String
+                example: { success: false, message: "Error from user side" }
+        500: #status code
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: Object
+                properties:
+                  success:
+                    type: Boolean
+                  message:
+                    type: String
+                example: { success: false, message: "Error from server" }
